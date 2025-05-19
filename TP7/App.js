@@ -12,6 +12,17 @@ import {
   Pressable,
   Image
 } from 'react-native';
+import * as SplashScreen from 'expo-splash-screen';
+
+// Keep the splash screen visible while we fetch resources
+SplashScreen.preventAutoHideAsync();
+
+// Set the animation options. This is optional.
+SplashScreen.setOptions({
+  duration: 1000,
+  fade: true,
+});
+
 
 const imagenFondo = {
   uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAvDXLGQKpRM8mMKJzme4NftrhRck1ZzDA_g&s'
@@ -23,14 +34,14 @@ const imagenPerfil = {
 
 export default function App() {
   const [mensaje, handleMensajeChange] = useState('');
-  const [Fondo, setFondo] = useState(false);  
+  const [TextoCambiado, setTexto] = useState(false);  
   
   const handlePress = () => {
     Alert.alert('Mensaje enviado', mensaje || 'No se ingresó ningún mensaje');
   };
 
   const handlePress2 = () => {
-    setFondo(!Fondo);  
+    setTexto (!TextoCambiado);  
   };
 
   return (
@@ -38,7 +49,7 @@ export default function App() {
       <ImageBackground
         source={imagenFondo}
         style={styles.backgroundImage}>
-        <View style={[styles.container, { backgroundColor: Fondo ? 'gray' : 'grey' }]}>
+        <View style={[styles.container, { backgroundColor: TextoCambiado ? 'gray' : 'grey' }]}>
         <Image source={imagenPerfil} style={styles.Perfil} />
 
           <Text style={styles.nombre}>Pepe</Text>
@@ -61,7 +72,7 @@ export default function App() {
             style={({ pressed }) => [
               styles.button,{backgroundColor: pressed ? '#4e555b' : '#6C757D', },]}>
             <Text style={styles.textoButton}>
-              {Fondo ? "Perfil Activo" : "Ver Perfil"}
+              {TextoCambiado ? "Perfil Activo" : "Ver Perfil"}
             </Text>
           </Pressable>
 
